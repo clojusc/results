@@ -45,6 +45,15 @@ The combination of these allows me to create as simple or as complex an errro-ha
 
 TBD
 
+
+## Releases
+
+| Version        | Status         | Notes                                 |
+| -------------- | -------------- | ------------------------------------- |
+| 0.1.0          | Released       | API-compatible with NASA CMR projects |
+| 0.2.0-SNAPSHOT | In development |                                       |
+
+
 ## Additional Resources
 
 * [Enhanced try and throw for Clojure leveraging Clojure's capabilities](https://github.com/scgilardi/slingshot)
