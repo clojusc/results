@@ -1,49 +1,30 @@
-# cmr-exchange-common
+# results
 
-*Cross-project functionality, utilities, and general-use components*
-
-[![Build Status][travis-badge]][travis]
-[![Security Scan][security-scan-badge]][travis]
-[![Dependencies Status][deps-badge]][travis]
-
-[![Clojars Project][clojars-badge]][clojars]
-[![Tag][tag-badge]][tag]
-
-[![Clojure version][clojure-v]](project.clj)
-
-[![][logo]][logo]
-
+*An FP approach to error handling in Clojure*
 
 ## About
 
-This repo just contains functions and components common to most of the other
-projects in cmr-exchange. The name `cmr-common` was deliberately avoided, since
-that is currently used in the legacy CMR codebase which the cmr-exchange
-projects support (and which which they interoperate).
+The conceptual inconsistency of having exceptions in a functional programming language have been
+covered elsewhere:
+* [try/catch complects: We can do so much better](http://michaeldrogalis.tumblr.com/post/40181639419/trycatch-complects-we-can-do-so-much-better)
+* ["Good Enough" error handling in Clojure](https://adambard.com/blog/acceptable-error-handling-in-clojure/)
+* [Erlang-style supervisor error handling for Clojure](https://github.com/MichaelDrogalis/dire)
+* [Category Theory and Algebraic abstractions for Clojure and ClojureScript](https://github.com/funcool/cats) (this supports the use of `maybe` in a way that is analogous to what Haskell does)
 
+Those are great resources and well worth a read and/or study. I have used `dire` for several years, and while I have enjoyed it (due to my Erlang background) it never quite felt like a good match for Clojure. I've only ever used `cats` in a REPL, and it was a lot of fun ... but I've only dabbled in languages that focus on category theory, never deployed or maintained anything with them. As such, while interesting, I find that approach somewhat divergant from idiomatic Clojure.
 
-## Dependencies [&#x219F;](#contents)
+What I really wanted was something that felt like Clojure when handling errors (exception handling in Clojure jumps out of Clojure and into Java; I'd like to choose when I do that, not _have_ to do it every time there's an error). To feel like Clojure, a solution would need to be data-focused. 
 
-* Java
-* `lein`
+I worked through several different approaches to this for large organizations that were ultimately deployed to production in public, user-facing projects. This library takes the lessons learned from all of those, providing:
+* a means by which error-type data (including aribtrary data, such as user-defined warnings) may be included in results
+* a simple function-based API for checking results and collecting error-type data from multiple sources
 
+The combination of these allows me to create as simple or as complex an errro-handling solution as a project may require, without having to depart from Clojure idioms and without forcing an application into a narrow world-view of errors.
 
-## License [&#x219F;](#contents)
+## Usage
 
-Copyright © 2018 NASA
+TBD
 
-Distributed under the Apache License, Version 2.0.
+## License
 
-
-<!-- Named page links below: /-->
-
-[logo]: https://avatars2.githubusercontent.com/u/32934967?s=200&v=4
-[travis]: https://travis-ci.org/cmr-exchange/cmr-exchange-common
-[travis-badge]: https://travis-ci.org/cmr-exchange/cmr-exchange-common.png?branch=master
-[deps-badge]: https://img.shields.io/badge/deps%20check-passing-brightgreen.svg
-[tag-badge]: https://img.shields.io/github/tag/cmr-exchange/cmr-exchange-common.svg
-[tag]: https://github.com/cmr-exchange/cmr-exchange-common/tags
-[clojure-v]: https://img.shields.io/badge/clojure-1.9.0-blue.svg
-[clojars]: https://clojars.org/gov.nasa.earthdata/cmr-exchange-common
-[clojars-badge]: https://img.shields.io/clojars/v/gov.nasa.earthdata/cmr-exchange-common.svg
-[security-scan-badge]: https://img.shields.io/badge/nvd%2Fsecurity%20scan-passing-brightgreen.svg
+TBD
