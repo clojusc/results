@@ -14,7 +14,7 @@
        ns
        "\u001B[35m]\u001B[33m λ\u001B[m=> "))
 
-(defproject clojusc/results "0.1.0"
+(defproject clojusc/results "0.2.0-SNAPSHOT"
   :description "A (meta)data-centric, FP approach to error handling in Clojure"
   :url "https://github.com/clojusc/results"
   :license {
