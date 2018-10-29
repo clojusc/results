@@ -2,6 +2,18 @@
 
 *A (meta)data-centric, FP approach to error handling in Clojure*
 
+[![Build Status][travis-badge]][travis]
+[![Security Scan][security-scan-badge]][travis]
+[![Dependencies Status][deps-badge]][travis]
+
+[![Clojars Project][clojars-badge]][clojars]
+[![Tag][tag-badge]][tag]
+
+[![Clojure version][clojure-v]](project.clj)
+
+[![][logo]][logo]
+
+
 ## About
 
 ### The Problem with Exceptions
@@ -18,7 +30,7 @@ Those are great resources and well worth a read and/or study. I have used `dire`
 
 ### The Desire for Data-centric Simplicity
 
-What I really wanted was something that felt like Clojure when handling errors (exception handling in Clojure jumps out of Clojure and into Java; I'd like to choose when I do that, not _have_ to do it every time there's an error). To feel like Clojure, a solution would need to be data-focused. 
+What I really wanted was something that felt like Clojure when handling errors (exception handling in Clojure jumps out of Clojure and into Java; I'd like to choose when I do that, not _have_ to do it every time there's an error). To feel like Clojure, a solution would need to be data-focused.
 
 ### A Simple Library
 
@@ -39,6 +51,22 @@ TBD
 * [An exception library with support for ex-info](https://github.com/mpenet/ex)
 * [Capture errors as information that is simple, actionable, generic, and extensible](https://github.com/cognitect-labs/anomalies)
 
-## License
+## License [&#x219F;](#contents)
 
-TBD
+Copyright © 2018 NASA
+
+Distributed under the Apache License, Version 2.0.
+
+
+<!-- Named page links below: /-->
+
+[logo]: https://avatars2.githubusercontent.com/u/32934967?s=200&v=4
+[travis]: https://travis-ci.org/clojusc/results
+[travis-badge]: https://travis-ci.org/clojusc/results.png?branch=master
+[deps-badge]: https://img.shields.io/badge/deps%20check-passing-brightgreen.svg
+[tag-badge]: https://img.shields.io/github/tag/clojusc/results.svg
+[tag]: https://github.com/clojusc/results/tags
+[clojure-v]: https://img.shields.io/badge/clojure-1.9.0-blue.svg
+[clojars]: https://clojars.org/clojusc/results
+[clojars-badge]: https://img.shields.io/clojars/v/clojusc/results.svg
+[security-scan-badge]: https://img.shields.io/badge/nvd%2Fsecurity%20scan-passing-brightgreen.svg
