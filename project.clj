@@ -14,14 +14,13 @@
        ns
        "\u001B[35m]\u001B[33m λ\u001B[m=> "))
 
-(defproject gov.nasa.earthdata/cmr-exchange-common "0.2.0-SNAPSHOT"
-  :description "Cross-project functionality, utilities, and general-use components"
-  :url "https://github.com/cmr-exchange/cmr-exchange-common"
+(defproject clojusc/results "0.1.0-SNAPSHOT"
+  :description "A (meta)data-centric, FP approach to error handling in Clojure"
+  :url "https://github.com/clojusc/results"
   :license {
     :name "Apache License, Version 2.0"
     :url "http://www.apache.org/licenses/LICENSE-2.0"}
   :dependencies [
-    [clojusc/trifl "0.4.0"]
     [clojusc/twig "0.4.0"]
     [org.clojure/clojure "1.9.0"]]
   :aot [clojure.tools.logging.impl]
@@ -41,15 +40,13 @@
         [com.google.javascript/closure-compiler-unshaded]]}
     :dev {
       :dependencies [
-        [clojusc/system-manager "0.3.0-SNAPSHOT"]
-        [org.clojure/java.classpath "0.3.0"]
-        [org.clojure/tools.namespace "0.2.11"]
-        [proto-repl "0.3.1"]]
+        [clojusc/trifl "0.4.0"]
+        [org.clojure/tools.namespace "0.2.11"]]
       :plugins [
         [venantius/ultra "0.5.2"]]
       :source-paths ["dev-resources/src"]
       :repl-options {
-        :init-ns cmr.exchange.common.dev
+        :init-ns clojusc.results.repl
         :prompt ~get-prompt
         :init ~(println (get-banner))}}
     :lint {
@@ -88,8 +85,7 @@
     "eastwood" ["with-profile" "+lint" "eastwood" "{:namespaces [:source-paths]}"]
     "lint" ["do"
       ["kibit"]
-      ;["eastwood"]
-      ]
+      ["eastwood"]]
     ;; Security
     "check-sec" ["with-profile" "+security" "do"
       ["clean"]

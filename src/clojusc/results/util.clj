@@ -1,4 +1,4 @@
-(ns cmr.exchange.common.results.util)
+(ns clojusc.results.util)
 
 (defn get-results
   [data plural-key singular-key]

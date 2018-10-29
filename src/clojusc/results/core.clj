@@ -1,4 +1,4 @@
-(ns cmr.exchange.common.results.core)
+(ns clojusc.results.core)
 
 (defrecord CollectionResults
   [;; The number of results returned

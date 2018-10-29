@@ -1,8 +1,8 @@
-(ns cmr.exchange.common.tests.unit.results.errors
+(ns clojusc.results.tests.unit.errors
   "Note: this namespace is exclusively for unit tests."
   (:require
    [clojure.test :refer :all]
-   [cmr.exchange.common.results.errors :as errors]))
+   [clojusc.results.errors :as errors]))
 
 (def test-status-map
   (merge errors/status-map

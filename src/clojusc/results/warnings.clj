@@ -1,7 +1,7 @@
-(ns cmr.exchange.common.results.warnings
+(ns clojusc.results.warnings
   (:require
    [clojure.set :as set]
-   [cmr.exchange.common.results.util :as util]))
+   [clojusc.results.util :as util]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;   Defaults   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
