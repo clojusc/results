@@ -1,6 +1,6 @@
 # results
 
-*An FP approach to error handling in Clojure*
+*A (meta)data-centric, FP approach to error handling in Clojure*
 
 ## About
 
