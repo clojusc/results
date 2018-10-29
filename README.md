@@ -8,6 +8,7 @@
 
 The conceptual inconsistency of having exceptions in a functional programming language have been
 covered elsewhere:
+* [An Error spec?](https://groups.google.com/d/msg/clojure/ok7xgrGazFo/XRIvXJPJBQAJ) (excellent points about problems with exceptions, e.g., in a `core.async` context, REST API results, etc.)
 * [try/catch complects: We can do so much better](http://michaeldrogalis.tumblr.com/post/40181639419/trycatch-complects-we-can-do-so-much-better)
 * ["Good Enough" error handling in Clojure](https://adambard.com/blog/acceptable-error-handling-in-clojure/)
 * [Erlang-style supervisor error handling for Clojure](https://github.com/MichaelDrogalis/dire)
@@ -31,6 +32,12 @@ The combination of these allows me to create as simple or as complex an errro-ha
 ## Usage
 
 TBD
+
+## Additional Resources
+
+* [Enhanced try and throw for Clojure leveraging Clojure's capabilities](https://github.com/scgilardi/slingshot)
+* [An exception library with support for ex-info](https://github.com/mpenet/ex)
+* [Capture errors as information that is simple, actionable, generic, and extensible](https://github.com/cognitect-labs/anomalies)
 
 ## License
 
