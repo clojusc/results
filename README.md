@@ -4,6 +4,8 @@
 
 ## About
 
+### The Problem with Exceptions
+
 The conceptual inconsistency of having exceptions in a functional programming language have been
 covered elsewhere:
 * [try/catch complects: We can do so much better](http://michaeldrogalis.tumblr.com/post/40181639419/trycatch-complects-we-can-do-so-much-better)
@@ -13,7 +15,11 @@ covered elsewhere:
 
 Those are great resources and well worth a read and/or study. I have used `dire` for several years, and while I have enjoyed it (due to my Erlang background) it never quite felt like a good match for Clojure. I've only ever used `cats` in a REPL, and it was a lot of fun ... but I've only dabbled in languages that focus on category theory, never deployed or maintained anything with them. As such, while interesting, I find that approach somewhat divergant from idiomatic Clojure.
 
+### The Desire for Data-centric Simplicity
+
 What I really wanted was something that felt like Clojure when handling errors (exception handling in Clojure jumps out of Clojure and into Java; I'd like to choose when I do that, not _have_ to do it every time there's an error). To feel like Clojure, a solution would need to be data-focused. 
+
+### A Simple Library
 
 I worked through several different approaches to this for large organizations that were ultimately deployed to production in public, user-facing projects. This library takes the lessons learned from all of those, providing:
 * a means by which error-type data (including aribtrary data, such as user-defined warnings) may be included in results
