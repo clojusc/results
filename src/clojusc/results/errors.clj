@@ -93,7 +93,6 @@
   [coll]
   (some erred? coll))
 
-
 (defn collect
   [& coll]
   (util/collect-results coll :errors :error))
