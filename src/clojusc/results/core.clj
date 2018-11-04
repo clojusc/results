@@ -1,31 +1,41 @@
 (ns clojusc.results.core)
 
-(defrecord CollectionResults
-  [;; The number of results returned
-   hits
-   ;; Number of milleseconds elapsed from start to end of call
-   took
-   ;; The actual items in the result set
-   items
-   ;; Any non-error messages that need to be returned
-   warnings])
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;   API Definition   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn create
-  [results & {:keys [elapsed warnings]}]
-  (map->CollectionResults
-    (merge {;; Our 'hits' is simplistic for now; will change when we support
-            ;; paging, etc.
-            :hits (count results)
-            :took elapsed
-            :items results}
-           warnings)))
+(defprotocol ResultsAPI
+  (errors [this]
+    "Return any errors that have been set on the result")
+  (errors? [this]
+    "Return `true` if any errors have been set on the result.")
+  (warnings [this]
+    "Return any warnings that have been set on the result")
+  (warnings? [this]
+    "Return `true` if any warnings have been set on the result."))
 
-(defn elided
-  [results]
-  (when (seq results)
-    (assoc results :items [(first (:items results) )"..."])))
+(defrecord Results
+  [data])
 
-(defn remaining-items
-  [results]
-  (when (seq results)
-    (rest (:items results))))
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;   Implementation   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def -errors #(get (meta %) :errors))
+(def -warnings #(get (meta %) :warnings))
+
+(def behaviour
+ {:errors -errors
+  :errors? #(boolean (seq (-errors %)))
+  :warnings -warnings
+  :warnings? #(boolean (seq (-warnings %)))})
+
+(extend Results
+        ResultsAPI
+        behaviour)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;   Constructor   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def create #(->Results %))

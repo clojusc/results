@@ -17,7 +17,7 @@
 
 ;; Generic
 
-(def status-code
+(def http-status-code
   "HTTP Error status code: %s.")
 
 (def not-implemented
