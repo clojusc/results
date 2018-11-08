@@ -50,8 +50,8 @@ TBD
 
 | Version        | Status         | Notes                                 |
 | -------------- | -------------- | ------------------------------------- |
-| 0.1.0          | Released       | API-compatible with NASA CMR projects |
 | 0.2.0-SNAPSHOT | In development |                                       |
+| 0.1.0          | Released       | API-compatible with NASA CMR projects |
 
 
 ## Additional Resources
@@ -60,9 +60,11 @@ TBD
 * [An exception library with support for ex-info](https://github.com/mpenet/ex)
 * [Capture errors as information that is simple, actionable, generic, and extensible](https://github.com/cognitect-labs/anomalies)
 
+
 ## License [&#x219F;](#contents)
 
-Copyright © 2018 NASA
+Copyright © 2018, Clojure-Aided Enrichment Center
+Copyright © 2018, NASA
 
 Distributed under the Apache License, Version 2.0.
 
