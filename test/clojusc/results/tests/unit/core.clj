@@ -14,6 +14,14 @@
                     test-result-3
                     ["Watch out!" "I have a bad feeling about this ..."]))
 
+(deftest create
+  (is (= {:data nil} (results/create nil)))
+  (is (= {:data 0} (results/create 0)))
+  (is (= {:data 1} test-result-1))
+  (let [r (results/create (/ 1 0))]
+    (is (= {:data nil} r))
+    (is (= ["Divide by zero"] (results/errors r)))))
+
 (deftest errors?
   (is (not (results/errors? test-result-1)))
   (is (results/errors? test-result-2))

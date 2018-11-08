@@ -44,9 +44,13 @@
 ;;;   Constructor   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defn create
-  [data]
-  (with-meta {:data data} behaviour))
+(defmacro create
+  [body]
+  `(try (with-meta {:data ~body} behaviour)
+     (catch Exception ex#
+       (errors
+         (with-meta {:data nil} behaviour)
+         [(ex-message ex#)]))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;   Operations on Collections of Results   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
