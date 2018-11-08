@@ -72,6 +72,20 @@ r
 => ["Divide by zero"]
 ```
 
+Collecting errors:
+
+```clj
+(def r2 (results/create (hash-map :a)))
+```
+```clj
+(results/collect-errors [r r2])
+=> ["Divide by zero" "No value supplied for key: :a"]
+(results/collect [r r2])
+=> {:errors ["Divide by zero"
+             "No value supplied for key: :a"]
+    :warnings []}
+```
+
 ... and there's more! See the unit tests for other usage examples.
 
 
