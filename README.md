@@ -28,9 +28,11 @@ covered elsewhere:
 
 Those are great resources and well worth a read and/or study. I have used `dire` for several years, and while I have enjoyed it (due to my Erlang background) it never quite felt like a good match for Clojure. I've only ever used `cats` in a REPL, and it was a lot of fun ... but I've only dabbled in languages that focus on category theory, never deployed or maintained anything with them. As such, while interesting, I find that approach somewhat divergant from idiomatic Clojure.
 
+
 ### The Desire for Data-centric Simplicity
 
 What I really wanted was something that felt like Clojure when handling errors (exception handling in Clojure jumps out of Clojure and into Java; I'd like to choose when I do that, not _have_ to do it every time there's an error). To feel like Clojure, a solution would need to be data-focused.
+
 
 ### A Simple Library
 
@@ -41,9 +43,36 @@ I worked through several different approaches to this for large organizations th
 
 The combination of these allows me to create as simple or as complex an errro-handling solution as a project may require, without having to depart from Clojure idioms and without forcing an application into a narrow world-view of errors.
 
+
 ## Usage
 
-TBD
+```clj
+(require '[clojusc.results.core :as results])
+```
+
+Simple result:
+
+```clj
+(def r (results/create (+ 1 1)))
+r
+=> {:data 2}
+(results/errors? r)
+=> false
+```
+
+Error-producing result:
+
+```clj
+(def r (results/create (/ 1 0)))
+r
+=> {:data nil}
+(results/errors? r)
+=> true
+(results/errors r)
+=> ["Divide by zero"]
+```
+
+... and there's more! See the unit tests for other usage examples.
 
 
 ## Releases
