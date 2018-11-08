@@ -78,7 +78,7 @@ Distributed under the Apache License, Version 2.0.
 [deps-badge]: https://img.shields.io/badge/deps%20check-passing-brightgreen.svg
 [tag-badge]: https://img.shields.io/github/tag/clojusc/results.svg
 [tag]: https://github.com/clojusc/results/tags
-[clojure-v]: https://img.shields.io/badge/clojure-1.9.0-blue.svg
+[clojure-v]: https://img.shields.io/badge/clojure-1.10.0-blue.svg
 [clojars]: https://clojars.org/clojusc/results
 [clojars-badge]: https://img.shields.io/clojars/v/clojusc/results.svg
 [security-scan-badge]: https://img.shields.io/badge/nvd%2Fsecurity%20scan-passing-brightgreen.svg

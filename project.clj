@@ -22,7 +22,7 @@
     :url "http://www.apache.org/licenses/LICENSE-2.0"}
   :dependencies [
     [clojusc/twig "0.4.0"]
-    [org.clojure/clojure "1.9.0"]]
+    [org.clojure/clojure "1.10.0-beta5"]]
   :aot [clojure.tools.logging.impl]
   :profiles {
     :ubercompile {
@@ -40,7 +40,7 @@
         [com.google.javascript/closure-compiler-unshaded]]}
     :dev {
       :dependencies [
-        [clojusc/trifl "0.4.0"]
+        [clojusc/trifl "0.4.2"]
         [org.clojure/tools.namespace "0.2.11"]]
       :plugins [
         [venantius/ultra "0.5.2"]]

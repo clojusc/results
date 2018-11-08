@@ -1,20 +1,17 @@
 (ns clojusc.results.util)
 
-(defn get-results
-  [data plural-key singular-key]
-  (or (plural-key data)
-      (when-let [result (singular-key data)]
-        [result])))
+(defn getter
+  [this key]
+  (get (meta this) key))
 
-(defn get-filtered-results
-  [data plural-key singular-key]
-  (->> data
-       (mapcat #(get-results % plural-key singular-key))
-       (remove nil?)
-       vec))
+(defn setter
+  [this key value]
+  (vary-meta this
+             assoc
+             key
+             (concat (getter this key) value)))
 
-(defn collect-results
-  [coll plural-key singular-key]
-  (let [results (get-filtered-results coll plural-key singular-key)]
-    (when (seq results)
-      {plural-key results})))
+(defn exception->errors-data
+  [exception]
+  [(or (.getMessage exception)
+       (ex-data exception))])
