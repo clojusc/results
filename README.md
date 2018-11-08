@@ -71,7 +71,8 @@ Distributed under the Apache License, Version 2.0.
 
 <!-- Named page links below: /-->
 
-[logo]: https://avatars2.githubusercontent.com/u/32934967?s=200&v=4
+[logo]: https://raw.githubusercontent.com/clojusc/results/master/resources/images/logo.png
+[logo-large]: https://raw.githubusercontent.com/clojusc/results/master/resources/images/logo-large.png
 [travis]: https://travis-ci.org/clojusc/results
 [travis-badge]: https://travis-ci.org/clojusc/results.png?branch=master
 [deps-badge]: https://img.shields.io/badge/deps%20check-passing-brightgreen.svg
