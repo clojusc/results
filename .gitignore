@@ -6,6 +6,7 @@
 /checkouts
 /classes
 /lib/
+/dev-resources/source-images
 /target
 build.xml
 pom.*
