@@ -20,7 +20,13 @@
   (is (= {:data 1} test-result-1))
   (let [r (results/create (/ 1 0))]
     (is (= {:data nil} r))
+    (is (= ["Divide by zero"] (results/errors r))))
+  (is (= {:value nil} (results/create nil {:key-name :value})))
+  (is (= {:value 0} (results/create 0 {:key-name :value})))
+  (let [r (results/create (/ 1 0) {:key-name :value})]
+    (is (= {:value nil} r))
     (is (= ["Divide by zero"] (results/errors r)))))
+
 
 (deftest errors?
   (is (not (results/errors? test-result-1)))

@@ -67,6 +67,17 @@ r
 => false
 ```
 
+As you can see, the data (or expression to be evaulated, which will generate
+data) is stored by default in a value associated with the `:data` key. This
+may be overridden by the developer in an options hash map, when creating a
+result:
+
+```clj
+(def r (results/create 42 {:key-name :my-value}))
+r
+=> {:my-value 42}
+```
+
 Error-producing result:
 
 ```clj

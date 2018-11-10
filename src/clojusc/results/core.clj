@@ -45,12 +45,14 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defmacro create
-  [body]
-  `(try (with-meta {:data ~body} behaviour)
+  ([body]
+    (create &form &env body {:key-name :data}))
+  ([body opts]
+  `(try (with-meta {(:key-name ~opts) ~body} behaviour)
      (catch Exception ex#
        (errors
-         (with-meta {:data nil} behaviour)
-         [(ex-message ex#)]))))
+         (with-meta {(:key-name ~opts) nil} behaviour)
+         [(ex-message ex#)])))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;   Operations on Collections of Results   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
