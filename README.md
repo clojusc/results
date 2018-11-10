@@ -98,10 +98,30 @@ Collecting errors:
 ```clj
 (results/collect-errors [r r2])
 => ["Divide by zero" "No value supplied for key: :a"]
-(results/collect [r r2])
-=> {:errors ["Divide by zero"
-             "No value supplied for key: :a"]
-    :warnings []}
+```
+
+You can also collect values. Let's make some non-error results:
+
+
+```clj
+(def r3 (results/create (+ 1 2)))
+(def r4 (results/create (* 2 (reduce + (range 1 7)))))
+```
+
+Now we can get the values:
+
+```clj
+(results/collect-values [r r2 r3 r4])
+=> (nil nil 3 42)
+```
+
+And you can collect all:
+
+```clj
+(results/collect [r r2 r3 r4])
+=> {:errors ("Divide by zero" "No value supplied for key: :a")
+    :values (nil nil 3 42)
+    :warnings ()}
 ```
 
 ... and there's more! See the unit tests for other usage examples.
