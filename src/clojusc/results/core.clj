@@ -56,7 +56,9 @@
 ;;;   Operations on Collections of Results   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(def collect-values #(mapcat vals %))
 (def collect-errors #(mapcat errors %))
 (def collect-warnings #(mapcat warnings %))
-(def collect #(hash-map :errors (collect-errors %)
+(def collect #(hash-map :values (collect-values %)
+                        :errors (collect-errors %)
                         :warnings (collect-warnings %)))

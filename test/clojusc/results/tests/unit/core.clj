@@ -62,6 +62,22 @@
           "I have a bad feeling about this ..."]
          (results/warnings test-result-5))))
 
+(deftest collect-values
+  (is (= [1]
+         (results/collect-values [test-result-1])))
+  (is (= [1 1]
+         (results/collect-values [test-result-1
+                                  test-result-2])))
+  (is (= [1 1 1]
+         (results/collect-values [test-result-1
+                                  test-result-2
+                                  test-result-3])))
+  (is (= [1 1 1 1 1]
+         (results/collect-values [test-result-1
+                                  test-result-2
+                                  test-result-3
+                                  test-result-4
+                                  test-result-5]))))
 (deftest collect-errors
   (is (= []
          (results/collect-errors [test-result-1])))
@@ -100,19 +116,23 @@
                                     test-result-5]))))
 
 (deftest collect
-  (is (= {:errors []
+  (is (= {:values [1]
+          :errors []
           :warnings []}
          (results/collect [test-result-1])))
-  (is (= {:errors ["Oops"]
+  (is (= {:values [1 1]
+          :errors ["Oops"]
           :warnings []}
          (results/collect [test-result-1
                            test-result-2])))
-  (is (= {:errors ["Oops"]
+  (is (= {:values [1 1 1]
+          :errors ["Oops"]
           :warnings ["Be careful ..."]}
          (results/collect [test-result-1
                            test-result-2
                            test-result-3])))
-  (is (= {:errors ["Oops" "Oops" "Uh-oh ..." "*BOOM*"]
+  (is (= {:values [1 1 1 1 1]
+          :errors ["Oops" "Oops" "Uh-oh ..." "*BOOM*"]
           :warnings ["Be careful ..."
                      "Be careful ..."
                      "Watch out!"
