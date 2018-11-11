@@ -11,7 +11,7 @@
 
 [![Clojure version][clojure-v]](project.clj)
 
-[![][logo]][logo]
+[![][logo]][logo-large]
 
 
 ## Intro
