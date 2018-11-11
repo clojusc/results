@@ -157,13 +157,13 @@ Distributed under the Apache License, Version 2.0.
 
 <!-- Named page links below: /-->
 
-[logo]: https://raw.githubusercontent.com/clojusc/result/master/resources/images/logo.png
+[logo]: https://raw.githubusercontent.com/clojusc/results/master/resources/images/logo.png
 [logo-large]: https://raw.githubusercontent.com/clojusc/result/master/resources/images/logo-large.png
 [travis]: https://travis-ci.org/clojusc/results
 [travis-badge]: https://travis-ci.org/clojusc/results.png?branch=master
 [deps-badge]: https://img.shields.io/badge/deps%20check-passing-brightgreen.svg
 [tag-badge]: https://img.shields.io/github/tag/clojusc/results.svg
-[tag]: https://github.com/clojusc/result/tags
+[tag]: https://github.com/clojusc/results/tags
 [clojure-v]: https://img.shields.io/badge/clojure-1.10.0-blue.svg
 [clojars]: https://clojars.org/clojusc/results
 [clojars-badge]: https://img.shields.io/clojars/v/clojusc/results.svg
