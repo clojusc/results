@@ -144,6 +144,7 @@ how to extract stacktraces, etc., from the errors in results).
 * [Enhanced try and throw for Clojure leveraging Clojure's capabilities](https://github.com/scgilardi/slingshot)
 * [An exception library with support for ex-info](https://github.com/mpenet/ex)
 * [Capture errors as information that is simple, actionable, generic, and extensible](https://github.com/cognitect-labs/anomalies)
+* [Declarative errors handling in Clojure](https://github.com/dawcs/flow)
 
 
 ## License [&#x219F;](#contents)
