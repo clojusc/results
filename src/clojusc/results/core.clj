@@ -1,5 +1,6 @@
 (ns clojusc.results.core
   (:require
+    [clojusc.results.error :as error]
     [clojusc.results.util :as util]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -26,13 +27,13 @@
   ([this]
     (util/getter this :errors))
   ([this errs]
-    (util/setter this :errors errs)))
+    (util/setter-concat this :errors errs)))
 
 (defn -warnings
   ([this]
     (util/getter this :warnings))
   ([this warns]
-    (util/setter this :warnings warns)))
+    (util/setter-concat this :warnings warns)))
 
 (def behaviour
  {`errors -errors
@@ -52,7 +53,7 @@
      (catch Exception ex#
        (errors
          (with-meta {(:key-name ~opts) nil} behaviour)
-         [(ex-message ex#)])))))
+         [(error/create ex#)])))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;   Operations on Collections of Results   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

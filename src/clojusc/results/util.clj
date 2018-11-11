@@ -9,9 +9,10 @@
   (vary-meta this
              assoc
              key
-             (concat (getter this key) value)))
+             value))
 
-(defn exception->errors-data
-  [exception]
-  [(or (.getMessage exception)
-       (ex-data exception))])
+(defn setter-concat
+  [this key value]
+  (setter this
+          key
+          (concat (getter this key) value)))

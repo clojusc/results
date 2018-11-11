@@ -17,8 +17,9 @@
 ## Intro
 
 In a language that is focused on data, it makes sense for errors to be data as
-well. This library allows you to just that, allowing for errors to be passed
-as messages, for example, in applications that use `core.async` or in REST APIs.
+well. This library allows you to just that, making it trivial for errors to be
+passed as messages, for example, in applications that use `core.async` or in
+REST APIs.
 
 
 ## About
@@ -87,7 +88,7 @@ r
 (results/errors? r)
 => true
 (results/errors r)
-=> ["Divide by zero"]
+=> [{:msg "Divide by zero"}]
 ```
 
 Collecting errors:
@@ -97,7 +98,8 @@ Collecting errors:
 ```
 ```clj
 (results/collect-errors [r r2])
-=> ["Divide by zero" "No value supplied for key: :a"]
+=> [{:msg "Divide by zero"}
+    {:msg "No value supplied for key: :a"}]
 ```
 
 You can also collect values. Let's make some non-error results:
@@ -119,12 +121,14 @@ And you can collect all:
 
 ```clj
 (results/collect [r r2 r3 r4])
-=> {:errors ("Divide by zero" "No value supplied for key: :a")
+=> {:errors ({:msg "Divide by zero"}
+             {:msg "No value supplied for key: :a"})
     :values (nil nil 3 42)
     :warnings ()}
 ```
 
-... and there's more! See the unit tests for other usage examples.
+... and there's more! See the unit tests for other usage examples (in particular,
+how to extract stacktraces, etc., from the errors in results).
 
 
 ## Releases
@@ -145,6 +149,7 @@ And you can collect all:
 ## License [&#x219F;](#contents)
 
 Copyright © 2018, Clojure-Aided Enrichment Center
+
 Copyright © 2018, NASA
 
 Distributed under the Apache License, Version 2.0.

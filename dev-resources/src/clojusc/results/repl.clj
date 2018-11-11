@@ -7,6 +7,7 @@
     [clojure.string :as string]
     [clojure.tools.namespace.repl :as repl]
     [clojusc.results.core :as results]
+    [clojusc.results.error :as error]
     [clojusc.results.http :as http]
     [clojusc.results.util :as util]
     [trifl.java :refer [show-methods]])
