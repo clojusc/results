@@ -55,16 +55,16 @@ The combination of these allows me to create as simple or as complex an errro-ha
 ## Usage
 
 ```clj
-(require '[clojusc.results.core :as results])
+(require '[clojusc.results.core :as result])
 ```
 
 Simple result:
 
 ```clj
-(def r (results/create (+ 1 1)))
+(def r (result/create (+ 1 1)))
 r
 => {:data 2}
-(results/errors? r)
+(result/errors? r)
 => false
 ```
 
@@ -74,7 +74,7 @@ may be overridden by the developer in an options hash map, when creating a
 result:
 
 ```clj
-(def r (results/create 42 {:key-name :my-value}))
+(def r (result/create 42 {:key-name :my-value}))
 r
 => {:my-value 42}
 ```
@@ -82,22 +82,22 @@ r
 Error-producing result:
 
 ```clj
-(def r (results/create (/ 1 0)))
+(def r (result/create (/ 1 0)))
 r
 => {:data nil}
-(results/errors? r)
+(result/errors? r)
 => true
-(results/errors r)
+(result/errors r)
 => [{:msg "Divide by zero"}]
 ```
 
 Collecting errors:
 
 ```clj
-(def r2 (results/create (hash-map :a)))
+(def r2 (result/create (hash-map :a)))
 ```
 ```clj
-(results/collect-errors [r r2])
+(result/collect-errors [r r2])
 => [{:msg "Divide by zero"}
     {:msg "No value supplied for key: :a"}]
 ```
@@ -106,21 +106,21 @@ You can also collect values. Let's make some non-error results:
 
 
 ```clj
-(def r3 (results/create (+ 1 2)))
-(def r4 (results/create (* 2 (reduce + (range 1 7)))))
+(def r3 (result/create (+ 1 2)))
+(def r4 (result/create (* 2 (reduce + (range 1 7)))))
 ```
 
 Now we can get the values:
 
 ```clj
-(results/collect-values [r r2 r3 r4])
+(result/collect-values [r r2 r3 r4])
 => (nil nil 3 42)
 ```
 
 And you can collect all:
 
 ```clj
-(results/collect [r r2 r3 r4])
+(result/collect [r r2 r3 r4])
 => {:errors ({:msg "Divide by zero"}
              {:msg "No value supplied for key: :a"})
     :values (nil nil 3 42)
@@ -157,13 +157,13 @@ Distributed under the Apache License, Version 2.0.
 
 <!-- Named page links below: /-->
 
-[logo]: https://raw.githubusercontent.com/clojusc/results/master/resources/images/logo.png
-[logo-large]: https://raw.githubusercontent.com/clojusc/results/master/resources/images/logo-large.png
+[logo]: https://raw.githubusercontent.com/clojusc/result/master/resources/images/logo.png
+[logo-large]: https://raw.githubusercontent.com/clojusc/result/master/resources/images/logo-large.png
 [travis]: https://travis-ci.org/clojusc/results
 [travis-badge]: https://travis-ci.org/clojusc/results.png?branch=master
 [deps-badge]: https://img.shields.io/badge/deps%20check-passing-brightgreen.svg
 [tag-badge]: https://img.shields.io/github/tag/clojusc/results.svg
-[tag]: https://github.com/clojusc/results/tags
+[tag]: https://github.com/clojusc/result/tags
 [clojure-v]: https://img.shields.io/badge/clojure-1.10.0-blue.svg
 [clojars]: https://clojars.org/clojusc/results
 [clojars-badge]: https://img.shields.io/clojars/v/clojusc/results.svg

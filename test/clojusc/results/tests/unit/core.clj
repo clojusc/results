@@ -2,100 +2,100 @@
   "Note: this namespace is exclusively for unit tests."
   (:require
    [clojure.test :refer :all]
-   [clojusc.results.core :as results]))
+   [clojusc.results.core :as result]))
 
-(def test-result-1 (results/create 1))
-(def test-result-2 (results/errors test-result-1 ["Oops"]))
-(def test-result-3 (results/warnings test-result-1 ["Be careful ..."]))
-(def test-result-4 (results/errors
+(def test-result-1 (result/create 1))
+(def test-result-2 (result/errors test-result-1 ["Oops"]))
+(def test-result-3 (result/warnings test-result-1 ["Be careful ..."]))
+(def test-result-4 (result/errors
                     test-result-2
                     ["Uh-oh ..." "*BOOM*"]))
-(def test-result-5 (results/warnings
+(def test-result-5 (result/warnings
                     test-result-3
                     ["Watch out!" "I have a bad feeling about this ..."]))
 
 (deftest create
-  (is (= {:data nil} (results/create nil)))
-  (is (= {:data 0} (results/create 0)))
+  (is (= {:data nil} (result/create nil)))
+  (is (= {:data 0} (result/create 0)))
   (is (= {:data 1} test-result-1))
-  (let [r (results/create (/ 1 0))]
+  (let [r (result/create (/ 1 0))]
     (is (= {:data nil} r))
-    (is (= [{:msg "Divide by zero"}] (results/errors r))))
-  (is (= {:value nil} (results/create nil {:key-name :value})))
-  (is (= {:value 0} (results/create 0 {:key-name :value})))
-  (let [r (results/create (/ 1 0) {:key-name :value})]
+    (is (= [{:msg "Divide by zero"}] (result/errors r))))
+  (is (= {:value nil} (result/create nil {:key-name :value})))
+  (is (= {:value 0} (result/create 0 {:key-name :value})))
+  (let [r (result/create (/ 1 0) {:key-name :value})]
     (is (= {:value nil} r))
-    (is (= [{:msg "Divide by zero"}] (results/errors r)))))
+    (is (= [{:msg "Divide by zero"}] (result/errors r)))))
 
 
 (deftest errors?
-  (is (not (results/errors? test-result-1)))
-  (is (results/errors? test-result-2))
-  (is (not (results/errors? test-result-3)))
-  (is (results/errors? test-result-4))
-  (is (not (results/errors? test-result-5))))
+  (is (not (result/errors? test-result-1)))
+  (is (result/errors? test-result-2))
+  (is (not (result/errors? test-result-3)))
+  (is (result/errors? test-result-4))
+  (is (not (result/errors? test-result-5))))
 
 (deftest warnings?
-  (is (not (results/warnings? test-result-1)))
-  (is (not (results/warnings? test-result-2)))
-  (is (results/warnings? test-result-3))
-  (is (not (results/warnings? test-result-4)))
-  (is (results/warnings? test-result-5)))
+  (is (not (result/warnings? test-result-1)))
+  (is (not (result/warnings? test-result-2)))
+  (is (result/warnings? test-result-3))
+  (is (not (result/warnings? test-result-4)))
+  (is (result/warnings? test-result-5)))
 
 (deftest errors
   (is (= nil
-         (results/errors test-result-1)))
+         (result/errors test-result-1)))
   (is (= ["Oops"]
-         (results/errors test-result-2)))
+         (result/errors test-result-2)))
   (is (= nil
-         (results/errors test-result-3)))
+         (result/errors test-result-3)))
   (is (= ["Oops" "Uh-oh ..." "*BOOM*"]
-         (results/errors test-result-4)))
+         (result/errors test-result-4)))
   (is (= nil
-         (results/errors test-result-5))))
+         (result/errors test-result-5))))
 
 (deftest warnings
   (is (= nil
-         (results/warnings test-result-1)))
+         (result/warnings test-result-1)))
   (is (= nil
-         (results/warnings test-result-2)))
+         (result/warnings test-result-2)))
   (is (= ["Be careful ..."]
-         (results/warnings test-result-3)))
+         (result/warnings test-result-3)))
   (is (= nil
-         (results/warnings test-result-4)))
+         (result/warnings test-result-4)))
   (is (= ["Be careful ..."
           "Watch out!"
           "I have a bad feeling about this ..."]
-         (results/warnings test-result-5))))
+         (result/warnings test-result-5))))
 
 (deftest collect-values
   (is (= [1]
-         (results/collect-values [test-result-1])))
+         (result/collect-values [test-result-1])))
   (is (= [1 1]
-         (results/collect-values [test-result-1
+         (result/collect-values [test-result-1
                                   test-result-2])))
   (is (= [1 1 1]
-         (results/collect-values [test-result-1
+         (result/collect-values [test-result-1
                                   test-result-2
                                   test-result-3])))
   (is (= [1 1 1 1 1]
-         (results/collect-values [test-result-1
+         (result/collect-values [test-result-1
                                   test-result-2
                                   test-result-3
                                   test-result-4
                                   test-result-5]))))
 (deftest collect-errors
   (is (= []
-         (results/collect-errors [test-result-1])))
+         (result/collect-errors [test-result-1])))
   (is (= ["Oops"]
-         (results/collect-errors [test-result-1
+         (result/collect-errors [test-result-1
                                   test-result-2])))
   (is (= ["Oops"]
-         (results/collect-errors [test-result-1
+         (result/collect-errors [test-result-1
                                   test-result-2
                                   test-result-3])))
   (is (= ["Oops" "Oops" "Uh-oh ..." "*BOOM*"]
-         (results/collect-errors [test-result-1
+         (result/collect-errors [test-result-1
                                   test-result-2
                                   test-result-3
                                   test-result-4
@@ -103,19 +103,19 @@
 
 (deftest collect-warnings
   (is (= []
-         (results/collect-warnings [test-result-1])))
+         (result/collect-warnings [test-result-1])))
   (is (= []
-         (results/collect-warnings [test-result-1
+         (result/collect-warnings [test-result-1
                                     test-result-2])))
   (is (= ["Be careful ..."]
-         (results/collect-warnings [test-result-1
+         (result/collect-warnings [test-result-1
                                     test-result-2
                                     test-result-3])))
   (is (= ["Be careful ..."
           "Be careful ..."
           "Watch out!"
           "I have a bad feeling about this ..."]
-         (results/collect-warnings [test-result-1
+         (result/collect-warnings [test-result-1
                                     test-result-2
                                     test-result-3
                                     test-result-4
@@ -125,16 +125,16 @@
   (is (= {:values [1]
           :errors []
           :warnings []}
-         (results/collect [test-result-1])))
+         (result/collect [test-result-1])))
   (is (= {:values [1 1]
           :errors ["Oops"]
           :warnings []}
-         (results/collect [test-result-1
+         (result/collect [test-result-1
                            test-result-2])))
   (is (= {:values [1 1 1]
           :errors ["Oops"]
           :warnings ["Be careful ..."]}
-         (results/collect [test-result-1
+         (result/collect [test-result-1
                            test-result-2
                            test-result-3])))
   (is (= {:values [1 1 1 1 1]
@@ -143,7 +143,7 @@
                      "Be careful ..."
                      "Watch out!"
                      "I have a bad feeling about this ..."]}
-         (results/collect [test-result-1
+         (result/collect [test-result-1
                            test-result-2
                            test-result-3
                            test-result-4
