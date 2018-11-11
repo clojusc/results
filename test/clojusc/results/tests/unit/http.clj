@@ -2,56 +2,39 @@
   "Note: this namespace is exclusively for unit tests."
   (:require
    [clojure.test :refer :all]
+   [clojusc.results.core :as result]
    [clojusc.results.http :as http]))
 
-(def test-status-map
-  (merge http/status-map
-         {http/server-error-code #{"Server problem"}}))
+(deftest http-generic
+  (let [err (http/http-generic 403)]
+    (is (= {:data nil} err))
+    (is (result/errors? err))
+    (is (= [{:msg {:status "HTTP error"
+                   :code 403}}]
+           (result/errors err)))))
 
-; (deftest any-client-errors?
-;   (is (not (errors/any-client-errors? {:errors []})))
-;   (is (errors/any-client-errors? errors/status-map
-;                                  {:errors ["Oops"
-;                                            errors/invalid-parameter]}))
-;   (is (errors/any-client-errors? errors/status-map
-;                                  {:errors [errors/invalid-parameter]})))
+(deftest not-implemented
+  (let [err http/not-implemented]
+    (is (= {:data nil} err))
+    (is (result/errors? err))
+    (is (= [{:msg {:status "This capability is not currently implemented."
+                   :code 400}}]
+           (result/errors err)))))
 
-; (deftest any-server-errors?
-;   (is (not (errors/any-server-errors? {:errors []})))
-;   (is (not (errors/any-server-errors? {:errors ["Oops"]})))
-;   (is (not (errors/any-server-errors? {:errors [errors/missing-parameters]})))
-;   (is (errors/any-server-errors? test-status-map
-;                                  {:errors ["Oops"
-;                                            errors/missing-parameters
-;                                            "Server problem"]}))
-;   (is (errors/any-server-errors? test-status-map
-;                                  {:errors ["Server problem"]})))
+(deftest client-errors?
+  (let [errs [http/not-implemented
+              http/unsupported
+              http/invalid-parameter]]
+  (is (not (http/client-errors? [(result/create 1)])))
+  (is (not (http/client-errors? [(result/create (/ 1 0))])))
+  (is (http/client-errors? errs))
+  (is (not (http/client-errors? [http/http-generic-server-error])))
+  (is (http/client-errors? (conj errs http/http-generic-server-error)))))
 
-; (deftest erred?
-;   (is (errors/erred? {:error ["an error message"]}))
-;   (is (errors/erred? {:errors ["an error message"]}))
-;   (is (not (errors/erred? {:data "stuff"}))))
-
-; (deftest any-erred?
-;   (is (not (errors/any-erred? [{}])))
-;   (is (not (errors/any-erred? [])))
-;   (is (not (errors/any-erred? [{:data "stuff"}])))
-;   (is (errors/any-erred? [{:errors ["an error message"]}]))
-;   (is (errors/any-erred? [{:errors ["an error message"]}
-;                           {:data "stuff"}]))
-;   (is (errors/any-erred? [{:error "an error message"}
-;                           {:errors ["an error message"]}])))
-
-; (deftest collect
-;   (is (= nil (errors/collect nil)))
-;   (is (= nil (errors/collect [])))
-;   (is (= nil (errors/collect {} {})))
-;   (is (= nil (errors/collect {:data "stuff"})))
-;   (is (= {:errors ["an error message"]}
-;          (errors/collect {:errors ["an error message"]})))
-;   (is (= {:errors ["an error message"]}
-;          (errors/collect {:errors ["an error message"]}
-;                          {:data "stuff"})))
-;   (is (= {:errors ["error message 1" "error message 2"]}
-;          (errors/collect {:error "error message 1"}
-;                          {:errors ["error message 2"]}))))
+(deftest server-errors?
+  (let [errs [http/http-generic-server-error]]
+  (is (not (http/server-errors? [(result/create 1)])))
+  (is (not (http/server-errors? [(result/create (/ 1 0))])))
+  (is (http/server-errors? errs))
+  (is (not (http/server-errors? [http/http-generic-client-error])))
+  (is (http/server-errors? (conj errs http/http-generic-client-error)))))

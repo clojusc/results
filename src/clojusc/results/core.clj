@@ -45,15 +45,24 @@
 ;;;   Constructor   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(def default-options
+  {:key-name :data})
+
 (defmacro create
   ([body]
-    (create &form &env body {:key-name :data}))
-  ([body opts]
-  `(try (with-meta {(:key-name ~opts) ~body} behaviour)
-     (catch Exception ex#
-       (errors
-         (with-meta {(:key-name ~opts) nil} behaviour)
-         [(error/create ex#)])))))
+    (create &form &env body {}))
+  ([body passed-opts]
+   `(let [opts# (merge default-options ~passed-opts)
+          key-name# (:key-name opts#)]
+      (if (:erred? opts#)
+        (errors
+          (with-meta {key-name# nil} behaviour)
+          [(error/create ~body)])
+      (try (with-meta {key-name# ~body} behaviour)
+        (catch Exception ex#
+          (errors
+            (with-meta {key-name# nil} behaviour)
+            [(error/create ex#)])))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;   Operations on Collections of Results   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

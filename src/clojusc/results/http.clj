@@ -1,6 +1,7 @@
 (ns clojusc.results.http
   (:require
    [clojure.set :as set]
+   [clojusc.results.core :as result]
    [clojusc.results.util :as util]))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -12,65 +13,83 @@
 (def server-error-code 500)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;   Utility & Support Functions   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defn client-code?
+  [code]
+  (and (>= code 400) (< code 500)))
+
+(defn server-code?
+  [code]
+  (and (>= code 500) (< code 600)))
+
+(defn create
+  [err-data]
+  (result/create err-data {:erred? true}))
+
+(defn get-http-code
+  [err]
+  (get-in err [:msg :code]))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;   Error Messages   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; Generic
+(defn http-generic
+  [code]
+  (create
+    {:status "HTTP error"
+     :code code}))
 
-(def http-status-code
-  "HTTP Error status code: %s.")
+(def http-generic-client-error
+  (create
+    {:status "HTTP client error"
+     :code client-error-code}))
+
+(def http-generic-server-error
+  (create
+    {:status "HTTP server error"
+     :code server-error-code}))
 
 (def not-implemented
-  "This capability is not currently implemented.")
+  (create
+    {:status "This capability is not currently implemented."
+     :code client-error-code}))
 
 (def unsupported
-  "This capability is not currently supported.")
+  (create
+    {:status "This capability is not currently supported."
+     :code client-error-code}))
 
 (def invalid-parameter
-  "One or more of the parameters provided were invalid.")
+  (create
+    {:status "One or more of the parameters provided were invalid."
+     :code client-error-code}))
 
-(def missing-parameters
-  "The following required parameters are missing from the request:")
-
-(def status-map
-  "This is a lookup data structure for how HTTP status/error codes map to CMR
-  OPeNDAP errors."
-  {client-error-code #{not-implemented
-                       unsupported
-                       invalid-parameter
-                       missing-parameters}
-   server-error-code #{}})
+(defn missing-parameters
+  [params]
+  (create
+    {:status (str "The following required parameters are missing "
+                  "from the request: " params)
+     :code client-error-code}))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;   Error Handling API   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;   Operations on Collections of Results   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-; (defn any-client-errors?
-;   "In arity-1, expections a map of the form `{:errors [...]}`. In arity-2,
-;   the first parameter is a status map with keys being error codes and values
-;   being the error messages associated with those codes."
-;   ([errors]
-;     (any-client-errors? status-map errors))
-;   ([errors-map errors]
-;     (not
-;       (nil?
-;         (seq (set/intersection (get errors-map client-error-code)
-;                                (set (:errors errors))))))))
+(defn client-errors?
+  [errs]
+  (->> errs
+       result/collect-errors
+       (map get-http-code)
+       (remove nil?)
+       (some client-code?)))
 
-; (defn any-server-errors?
-;   "In arity-1, expections a map of the form `{:errors [...]}`. In arity-2,
-;   the first parameter is a status map with keys being error codes and values
-;   being the error messages associated with those codes."
-;   ([errors]
-;     (any-server-errors? status-map errors))
-;   ([errors-map errors]
-;     (not
-;       (nil?
-;         (seq (set/intersection (get errors-map server-error-code)
-;                                (set (:errors errors))))))))
-
-; (defn check
-;   ""
-;   [& msgs]
-;   (remove nil? (map (fn [[check-fn value msg]] (when (check-fn value) msg))
-;                     msgs)))
+(defn server-errors?
+  [errs]
+  (->> errs
+       result/collect-errors
+       (map get-http-code)
+       (remove nil?)
+       (some server-code?)))

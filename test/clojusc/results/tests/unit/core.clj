@@ -25,7 +25,10 @@
   (is (= {:value 0} (result/create 0 {:key-name :value})))
   (let [r (result/create (/ 1 0) {:key-name :value})]
     (is (= {:value nil} r))
-    (is (= [{:msg "Divide by zero"}] (result/errors r)))))
+    (is (= [{:msg "Divide by zero"}] (result/errors r))))
+  (let [r (result/create {:error :data} {:erred? true})]
+    (is (= {:data nil} r))
+    (is (= [{:msg {:error :data}}] (result/errors r)))))
 
 
 (deftest errors?
