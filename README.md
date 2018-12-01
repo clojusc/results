@@ -26,7 +26,7 @@ REST APIs.
 
 ### The Problem with Exceptions
 
-The conceptual inconsistency of having exceptions in a functional programming language have been
+The conceptual inconsistency of having exceptions in a functional programming language has been
 covered elsewhere:
 * [An Error spec?](https://groups.google.com/d/msg/clojure/ok7xgrGazFo/XRIvXJPJBQAJ) (excellent points about problems with exceptions, e.g., in a `core.async` context, REST API results, etc.)
 * [try/catch complects: We can do so much better](http://michaeldrogalis.tumblr.com/post/40181639419/trycatch-complects-we-can-do-so-much-better)
