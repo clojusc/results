@@ -44,7 +44,7 @@ What I really wanted was something that felt like Clojure when handling errors (
 
 ### A Simple Library
 
-I worked through several different approaches to this for large organizations that were ultimately deployed to production in public, user-facing projects. This library takes the lessons learned from all of those, providing:
+I worked through several different approaches to this for large organization projects that were ultimately deployed to production in public, user-facing projects. This library takes the lessons learned from all of those, providing:
 * a means by which error-type data (including aribtrary data, such as user-defined warnings) may be included in results unobtrusively (via `vary-meta`)
 * a simple record that implements a results protocol for checking the status of a single result (and for inspecting error-type data accumulated via `meta`)
 * a simple function-based API for collecting error-type data from multiple results
