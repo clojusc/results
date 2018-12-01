@@ -17,7 +17,7 @@
 ## Intro
 
 In a language that is focused on data, it makes sense for errors to be data as
-well. This library allows you to just that, making it trivial for errors to be
+well. This library allows you to do just that, making it trivial for errors to be
 passed as messages, for example, in applications that use `core.async` or in
 REST APIs.
 
