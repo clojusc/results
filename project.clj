@@ -53,7 +53,7 @@
       :source-paths ^:replace ["src"]
       :test-paths ^:replace []
       :plugins [
-        [jonase/eastwood "0.3.3"]
+        [jonase/eastwood "0.3.4"]
         [lein-ancient "0.6.15"]
         [lein-kibit "0.1.6"]]}
     :test {
