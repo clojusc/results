@@ -22,7 +22,7 @@
     :url "http://www.apache.org/licenses/LICENSE-2.0"}
   :dependencies [
     [clojusc/twig "0.4.0"]
-    [org.clojure/clojure "1.10.0-beta5"]]
+    [org.clojure/clojure "1.10.0-RC2"]]
   :aot [clojure.tools.logging.impl]
   :profiles {
     :ubercompile {

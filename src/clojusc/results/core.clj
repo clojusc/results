@@ -8,6 +8,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defprotocol ResultsAPI
+  :extend-via-metadata true
   (errors [this] [this errs]
     "Return any errors that have been set on the result. If a collection is
     passed, concat the collection to the object's `:errors` metadata.")

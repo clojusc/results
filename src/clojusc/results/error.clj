@@ -8,6 +8,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defprotocol ErrorAPI
+  :extend-via-metadata true
   (cause [this]
     "Return the exception cause (or nil, if there isn't one) of the associated
     exception.")
